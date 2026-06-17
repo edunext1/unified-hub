@@ -290,7 +290,8 @@ function Dashboard() {
             {quickActions.map((a) => (
               <Link
                 key={a.title}
-                to={a.url}
+                to="/modules/$module"
+                params={{ module: a.slug }}
                 className="group rounded-lg border bg-card hover:shadow-md hover:-translate-y-0.5 transition-all p-4 flex flex-col items-start gap-3"
               >
                 <div className={`h-9 w-9 rounded-md flex items-center justify-center ${a.hue}`}>
@@ -348,19 +349,24 @@ function Dashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             {pinnableModules.map((m) => {
-              const pinned = has(m.url);
+              const url = `/modules/${m.slug}`;
+              const pinned = has(url);
               return (
                 <div
-                  key={m.url}
+                  key={m.slug}
                   className="flex items-center justify-between rounded-md border px-3 py-2"
                 >
-                  <Link to={m.url} className="text-sm hover:underline">
+                  <Link
+                    to="/modules/$module"
+                    params={{ module: m.slug }}
+                    className="text-sm hover:underline"
+                  >
                     {m.title}
                   </Link>
                   <Button
                     size="sm"
                     variant={pinned ? "secondary" : "ghost"}
-                    onClick={() => (pinned ? remove(m.url) : add(m))}
+                    onClick={() => (pinned ? remove(url) : add({ title: m.title, url }))}
                     aria-label={pinned ? "Remove bookmark" : "Add bookmark"}
                   >
                     {pinned ? (
