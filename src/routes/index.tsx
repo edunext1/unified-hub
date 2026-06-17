@@ -84,12 +84,12 @@ const kpis = [
 ];
 
 const quickActions = [
-  { title: "New Event", url: "/modules/events", icon: CalendarRange, hue: "bg-chart-1/15 text-chart-1" },
-  { title: "Send Broadcast", url: "/modules/whatsapp", icon: MessageSquare, hue: "bg-chart-2/15 text-chart-2" },
-  { title: "Publish Page", url: "/modules/website", icon: Globe2, hue: "bg-chart-3/15 text-chart-3" },
-  { title: "Invite User", url: "/modules/users", icon: Users, hue: "bg-chart-4/15 text-chart-4" },
-  { title: "Announcement", url: "/modules/communication", icon: Megaphone, hue: "bg-chart-5/15 text-chart-5" },
-  { title: "Check-in Guest", url: "/modules/front-office", icon: Building2, hue: "bg-primary/10 text-primary" },
+  { title: "New Event", slug: "events", icon: CalendarRange, hue: "bg-chart-1/15 text-chart-1" },
+  { title: "Send Broadcast", slug: "whatsapp", icon: MessageSquare, hue: "bg-chart-2/15 text-chart-2" },
+  { title: "Publish Page", slug: "website", icon: Globe2, hue: "bg-chart-3/15 text-chart-3" },
+  { title: "Invite User", slug: "users", icon: Users, hue: "bg-chart-4/15 text-chart-4" },
+  { title: "Announcement", slug: "communication", icon: Megaphone, hue: "bg-chart-5/15 text-chart-5" },
+  { title: "Check-in Guest", slug: "front-office", icon: Building2, hue: "bg-primary/10 text-primary" },
 ];
 
 const activity = [
@@ -101,14 +101,14 @@ const activity = [
 ];
 
 const pinnableModules = [
-  { title: "Event Manager", url: "/modules/events" },
-  { title: "WhatsApp CRM", url: "/modules/whatsapp" },
-  { title: "Website Builder", url: "/modules/website" },
-  { title: "User Management", url: "/modules/users" },
-  { title: "Communication", url: "/modules/communication" },
-  { title: "Front Office", url: "/modules/front-office" },
-  { title: "Reports & Analytics", url: "/modules/reports" },
-  { title: "Settings", url: "/modules/settings" },
+  { title: "Event Manager", slug: "events" },
+  { title: "WhatsApp CRM", slug: "whatsapp" },
+  { title: "Website Builder", slug: "website" },
+  { title: "User Management", slug: "users" },
+  { title: "Communication", slug: "communication" },
+  { title: "Front Office", slug: "front-office" },
+  { title: "Reports & Analytics", slug: "reports" },
+  { title: "Settings", slug: "settings" },
 ];
 
 function Dashboard() {
