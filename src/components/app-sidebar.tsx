@@ -30,15 +30,14 @@ import { useAuth } from "@/lib/auth-store";
 import { useBookmarks } from "@/lib/bookmarks";
 
 const modules = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Event Manager", url: "/modules/events", icon: CalendarRange },
-  { title: "WhatsApp CRM", url: "/modules/whatsapp", icon: MessageSquare },
-  { title: "Website Builder", url: "/modules/website", icon: Globe2 },
-  { title: "User Management", url: "/modules/users", icon: Users },
-  { title: "Communication", url: "/modules/communication", icon: Megaphone },
-  { title: "Front Office", url: "/modules/front-office", icon: Building2 },
-  { title: "Reports & Analytics", url: "/modules/reports", icon: BarChart3 },
-  { title: "Settings", url: "/modules/settings", icon: Settings },
+  { title: "Event Manager", slug: "events", icon: CalendarRange },
+  { title: "WhatsApp CRM", slug: "whatsapp", icon: MessageSquare },
+  { title: "Website Builder", slug: "website", icon: Globe2 },
+  { title: "User Management", slug: "users", icon: Users },
+  { title: "Communication", slug: "communication", icon: Megaphone },
+  { title: "Front Office", slug: "front-office", icon: Building2 },
+  { title: "Reports & Analytics", slug: "reports", icon: BarChart3 },
+  { title: "Settings", slug: "settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -47,9 +46,6 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const { user, login, logout } = useAuth();
   const { bookmarks } = useBookmarks();
-
-  const isActive = (url: string) =>
-    url === "/" ? pathname === "/" : pathname.startsWith(url);
 
   return (
     <Sidebar collapsible="icon">
@@ -69,19 +65,42 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Main</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/"} tooltip="Dashboard">
+                  <Link to="/" className="flex items-center gap-2">
+                    <LayoutDashboard className="h-4 w-4 shrink-0" />
+                    <span>Dashboard</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
           <SidebarGroupLabel>Modules</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {modules.map((m) => (
-                <SidebarMenuItem key={m.url}>
-                  <SidebarMenuButton asChild isActive={isActive(m.url)} tooltip={m.title}>
-                    <Link to={m.url} className="flex items-center gap-2">
-                      <m.icon className="h-4 w-4 shrink-0" />
-                      <span>{m.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {modules.map((m) => {
+                const url = `/modules/${m.slug}`;
+                return (
+                  <SidebarMenuItem key={m.slug}>
+                    <SidebarMenuButton asChild isActive={pathname === url} tooltip={m.title}>
+                      <Link
+                        to="/modules/$module"
+                        params={{ module: m.slug }}
+                        className="flex items-center gap-2"
+                      >
+                        <m.icon className="h-4 w-4 shrink-0" />
+                        <span>{m.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -91,16 +110,27 @@ export function AppSidebar() {
             <SidebarGroupLabel>Bookmarks</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {bookmarks.map((b) => (
-                  <SidebarMenuItem key={b.url}>
-                    <SidebarMenuButton asChild isActive={pathname === b.url} tooltip={b.title}>
-                      <Link to={b.url} className="flex items-center gap-2">
-                        <Bookmark className="h-4 w-4 shrink-0" />
-                        <span>{b.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {bookmarks.map((b) => {
+                  const slug = b.url.replace("/modules/", "");
+                  return (
+                    <SidebarMenuItem key={b.url}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === b.url}
+                        tooltip={b.title}
+                      >
+                        <Link
+                          to="/modules/$module"
+                          params={{ module: slug }}
+                          className="flex items-center gap-2"
+                        >
+                          <Bookmark className="h-4 w-4 shrink-0" />
+                          <span>{b.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
