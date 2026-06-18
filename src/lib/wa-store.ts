@@ -57,6 +57,11 @@ export const waStore = {
 
 export function useWaIntegrations() {
   const [, tick] = useState(0);
-  useEffect(() => waStore.subscribe(() => tick((n) => n + 1)), []);
+  useEffect(() => {
+    const unsub = waStore.subscribe(() => tick((n) => n + 1));
+    return () => {
+      unsub();
+    };
+  }, []);
   return waStore.getAll();
 }
