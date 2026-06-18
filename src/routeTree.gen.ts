@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ModulesIntegrationsWhatsappRouteImport } from './routes/modules.integrations-whatsapp'
 import { Route as ModulesModuleRouteImport } from './routes/modules.$module'
 
 const IndexRoute = IndexRouteImport.update({
@@ -17,6 +18,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModulesIntegrationsWhatsappRoute =
+  ModulesIntegrationsWhatsappRouteImport.update({
+    id: '/modules/integrations-whatsapp',
+    path: '/modules/integrations-whatsapp',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ModulesModuleRoute = ModulesModuleRouteImport.update({
   id: '/modules/$module',
   path: '/modules/$module',
@@ -26,27 +33,31 @@ const ModulesModuleRoute = ModulesModuleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/modules/$module'
+  fullPaths: '/' | '/modules/$module' | '/modules/integrations-whatsapp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/modules/$module'
-  id: '__root__' | '/' | '/modules/$module'
+  to: '/' | '/modules/$module' | '/modules/integrations-whatsapp'
+  id: '__root__' | '/' | '/modules/$module' | '/modules/integrations-whatsapp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ModulesModuleRoute: typeof ModulesModuleRoute
+  ModulesIntegrationsWhatsappRoute: typeof ModulesIntegrationsWhatsappRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +67,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/integrations-whatsapp': {
+      id: '/modules/integrations-whatsapp'
+      path: '/modules/integrations-whatsapp'
+      fullPath: '/modules/integrations-whatsapp'
+      preLoaderRoute: typeof ModulesIntegrationsWhatsappRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/modules/$module': {
@@ -71,6 +89,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ModulesModuleRoute: ModulesModuleRoute,
+  ModulesIntegrationsWhatsappRoute: ModulesIntegrationsWhatsappRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -13,7 +13,7 @@ import {
   LayoutDashboard,
   Bookmark,
   ChevronRight,
-  Plug,
+  
 } from "lucide-react";
 import {
   Sidebar,
@@ -50,7 +50,9 @@ const modules = [
 ];
 
 const configurationSubmenu = [
-  { title: "Communication Integration", slug: "integrations-communication" },
+  { title: "WhatsApp Integration", slug: "integrations-whatsapp" },
+  { title: "Email Integration", slug: "integrations-email" },
+  { title: "SMS Integration", slug: "integrations-sms" },
   { title: "Facebook Integration", slug: "integrations-facebook" },
   { title: "Other API Integration", slug: "integrations-other" },
 ];
@@ -141,26 +143,18 @@ export function AppSidebar() {
                           </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton className="font-medium">
-                          <Plug className="h-3.5 w-3.5" />
-                          <span>Integrations</span>
-                        </SidebarMenuSubButton>
-                        <SidebarMenuSub>
-                          {configurationSubmenu.map((s) => {
-                            const url = `/modules/${s.slug}`;
-                            return (
-                              <SidebarMenuSubItem key={s.slug}>
-                                <SidebarMenuSubButton asChild isActive={pathname === url}>
-                                  <Link to="/modules/$module" params={{ module: s.slug }}>
-                                    <span>{s.title}</span>
-                                  </Link>
-                                </SidebarMenuSubButton>
-                              </SidebarMenuSubItem>
-                            );
-                          })}
-                        </SidebarMenuSub>
-                      </SidebarMenuSubItem>
+                      {configurationSubmenu.map((s) => {
+                        const url = `/modules/${s.slug}`;
+                        return (
+                          <SidebarMenuSubItem key={s.slug}>
+                            <SidebarMenuSubButton asChild isActive={pathname === url}>
+                              <Link to="/modules/$module" params={{ module: s.slug }}>
+                                <span>{s.title}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        );
+                      })}
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </SidebarMenuItem>
