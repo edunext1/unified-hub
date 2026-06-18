@@ -12,6 +12,8 @@ import {
   LogOut,
   LayoutDashboard,
   Bookmark,
+  ChevronRight,
+  Plug,
 } from "lucide-react";
 import {
   Sidebar,
@@ -24,8 +26,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { useAuth } from "@/lib/auth-store";
 import { useBookmarks } from "@/lib/bookmarks";
 
@@ -33,11 +43,16 @@ const modules = [
   { title: "Event Manager", slug: "events", icon: CalendarRange },
   { title: "WhatsApp CRM", slug: "whatsapp", icon: MessageSquare },
   { title: "Website Builder", slug: "website", icon: Globe2 },
-  { title: "User Management", slug: "users", icon: Users },
   { title: "Communication", slug: "communication", icon: Megaphone },
   { title: "Front Office", slug: "front-office", icon: Building2 },
   { title: "Reports & Analytics", slug: "reports", icon: BarChart3 },
-  { title: "Settings", slug: "settings", icon: Settings },
+  { title: "User Management", slug: "users", icon: Users },
+];
+
+const configurationSubmenu = [
+  { title: "Communication Integration", slug: "integrations-communication" },
+  { title: "Facebook Integration", slug: "integrations-facebook" },
+  { title: "Other API Integration", slug: "integrations-other" },
 ];
 
 export function AppSidebar() {
@@ -101,6 +116,55 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
+
+              <Collapsible
+                defaultOpen={pathname.startsWith("/modules/integrations-") || pathname === "/modules/configuration"}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton
+                      tooltip="Configuration"
+                      isActive={pathname === "/modules/configuration"}
+                    >
+                      <Settings className="h-4 w-4 shrink-0" />
+                      <span>Configuration</span>
+                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton asChild isActive={pathname === "/modules/configuration"}>
+                          <Link to="/modules/$module" params={{ module: "configuration" }}>
+                            <span>General</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton className="font-medium">
+                          <Plug className="h-3.5 w-3.5" />
+                          <span>Integrations</span>
+                        </SidebarMenuSubButton>
+                        <SidebarMenuSub>
+                          {configurationSubmenu.map((s) => {
+                            const url = `/modules/${s.slug}`;
+                            return (
+                              <SidebarMenuSubItem key={s.slug}>
+                                <SidebarMenuSubButton asChild isActive={pathname === url}>
+                                  <Link to="/modules/$module" params={{ module: s.slug }}>
+                                    <span>{s.title}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            );
+                          })}
+                        </SidebarMenuSub>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

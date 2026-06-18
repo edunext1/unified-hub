@@ -12,7 +12,11 @@ const MODULE_META: Record<string, { title: string; description: string }> = {
   communication: { title: "Communication", description: "Announcements, email and SMS campaigns." },
   "front-office": { title: "Front Office", description: "Check-ins, visitors and reception desk." },
   reports: { title: "Reports & Analytics", description: "Cross-module reporting and insights." },
-  settings: { title: "Settings", description: "Workspace, billing and integrations." },
+  settings: { title: "Configuration", description: "Workspace, billing and integrations." },
+  configuration: { title: "Configuration", description: "Workspace, billing and general settings." },
+  "integrations-communication": { title: "Communication Integration", description: "Connect WhatsApp, Email and SMS providers." },
+  "integrations-facebook": { title: "Facebook Integration", description: "Connect Facebook Pages, Ads and Lead forms." },
+  "integrations-other": { title: "Other API Integration", description: "Connect custom REST APIs and webhooks." },
 };
 
 export const Route = createFileRoute("/modules/$module")({
