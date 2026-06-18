@@ -13,7 +13,7 @@ import {
   LayoutDashboard,
   Bookmark,
   ChevronRight,
-  Plug,
+  
 } from "lucide-react";
 import {
   Sidebar,
