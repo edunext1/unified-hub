@@ -50,7 +50,9 @@ const modules = [
 ];
 
 const configurationSubmenu = [
-  { title: "Communication Integration", slug: "integrations-communication" },
+  { title: "WhatsApp Integration", slug: "integrations-whatsapp" },
+  { title: "Email Integration", slug: "integrations-email" },
+  { title: "SMS Integration", slug: "integrations-sms" },
   { title: "Facebook Integration", slug: "integrations-facebook" },
   { title: "Other API Integration", slug: "integrations-other" },
 ];
