@@ -116,6 +116,55 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
+
+              <Collapsible
+                defaultOpen={pathname.startsWith("/modules/integrations-") || pathname === "/modules/configuration"}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton
+                      tooltip="Configuration"
+                      isActive={pathname === "/modules/configuration"}
+                    >
+                      <Settings className="h-4 w-4 shrink-0" />
+                      <span>Configuration</span>
+                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton asChild isActive={pathname === "/modules/configuration"}>
+                          <Link to="/modules/$module" params={{ module: "configuration" }}>
+                            <span>General</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton className="font-medium">
+                          <Plug className="h-3.5 w-3.5" />
+                          <span>Integrations</span>
+                        </SidebarMenuSubButton>
+                        <SidebarMenuSub>
+                          {configurationSubmenu.map((s) => {
+                            const url = `/modules/${s.slug}`;
+                            return (
+                              <SidebarMenuSubItem key={s.slug}>
+                                <SidebarMenuSubButton asChild isActive={pathname === url}>
+                                  <Link to="/modules/$module" params={{ module: s.slug }}>
+                                    <span>{s.title}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            );
+                          })}
+                        </SidebarMenuSub>
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
