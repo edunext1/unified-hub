@@ -14,7 +14,9 @@ const MODULE_META: Record<string, { title: string; description: string }> = {
   reports: { title: "Reports & Analytics", description: "Cross-module reporting and insights." },
   settings: { title: "Configuration", description: "Workspace, billing and integrations." },
   configuration: { title: "Configuration", description: "Workspace, billing and general settings." },
-  "integrations-communication": { title: "Communication Integration", description: "Connect WhatsApp, Email and SMS providers." },
+  "integrations-whatsapp": { title: "WhatsApp Integration", description: "Connect Meta Cloud API or BSP vendor for WhatsApp." },
+  "integrations-email": { title: "Email Integration", description: "Connect SMTP, SendGrid or other email providers." },
+  "integrations-sms": { title: "SMS Integration", description: "Connect SMS gateways like Twilio, MSG91 or Kaleyra." },
   "integrations-facebook": { title: "Facebook Integration", description: "Connect Facebook Pages, Ads and Lead forms." },
   "integrations-other": { title: "Other API Integration", description: "Connect custom REST APIs and webhooks." },
 };
