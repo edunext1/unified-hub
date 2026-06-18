@@ -12,6 +12,8 @@ import {
   LogOut,
   LayoutDashboard,
   Bookmark,
+  ChevronRight,
+  Plug,
 } from "lucide-react";
 import {
   Sidebar,
@@ -24,8 +26,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { useAuth } from "@/lib/auth-store";
 import { useBookmarks } from "@/lib/bookmarks";
 
@@ -33,11 +43,16 @@ const modules = [
   { title: "Event Manager", slug: "events", icon: CalendarRange },
   { title: "WhatsApp CRM", slug: "whatsapp", icon: MessageSquare },
   { title: "Website Builder", slug: "website", icon: Globe2 },
-  { title: "User Management", slug: "users", icon: Users },
   { title: "Communication", slug: "communication", icon: Megaphone },
   { title: "Front Office", slug: "front-office", icon: Building2 },
   { title: "Reports & Analytics", slug: "reports", icon: BarChart3 },
-  { title: "Settings", slug: "settings", icon: Settings },
+  { title: "User Management", slug: "users", icon: Users },
+];
+
+const configurationSubmenu = [
+  { title: "Communication Integration", slug: "integrations-communication" },
+  { title: "Facebook Integration", slug: "integrations-facebook" },
+  { title: "Other API Integration", slug: "integrations-other" },
 ];
 
 export function AppSidebar() {
