@@ -19,6 +19,9 @@ const MODULE_META: Record<string, { title: string; description: string }> = {
   "integrations-sms": { title: "SMS Integration", description: "Connect SMS gateways like Twilio, MSG91 or Kaleyra." },
   "integrations-facebook": { title: "Facebook Integration", description: "Connect Facebook Pages, Ads and Lead forms." },
   "integrations-other": { title: "Other API Integration", description: "Connect custom REST APIs and webhooks." },
+  "templates-whatsapp": { title: "WhatsApp Templates", description: "Create and manage WhatsApp templates." },
+  "templates-sms": { title: "SMS Templates", description: "Create and manage SMS templates." },
+  "templates-email": { title: "Email Templates", description: "Create and manage Email templates." },
 };
 
 export const Route = createFileRoute("/modules/$module")({
@@ -26,8 +29,8 @@ export const Route = createFileRoute("/modules/$module")({
     const m = MODULE_META[params.module];
     return {
       meta: [
-        { title: `${m?.title ?? "Module"} — OrbitOps` },
-        { name: "description", content: m?.description ?? "OrbitOps module" },
+        { title: `${m?.title ?? "Module"} — KnowVato Solutions` },
+        { name: "description", content: m?.description ?? "KnowVato Solutions module" },
       ],
     };
   },
