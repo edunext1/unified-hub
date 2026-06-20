@@ -80,10 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OrbitOps — Unified Operations Dashboard" },
+      { title: "KnowVato Solutions — Unified Operations Dashboard" },
       { name: "description", content: "All your modules — events, WhatsApp CRM, website, users, communication and front office — in one workspace." },
-      { name: "author", content: "OrbitOps" },
-      { property: "og:title", content: "OrbitOps — Unified Operations Dashboard" },
+      { name: "author", content: "KnowVato Solutions" },
+      { property: "og:title", content: "KnowVato Solutions — Unified Operations Dashboard" },
       { property: "og:description", content: "All your modules — events, WhatsApp CRM, website, users, communication and front office — in one workspace." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -121,7 +121,7 @@ function RootComponent() {
           <div className="flex-1 flex flex-col min-w-0">
             <header className="h-14 flex items-center gap-3 border-b bg-card/50 backdrop-blur px-4 sticky top-0 z-10">
               <SidebarTrigger />
-              <div className="text-sm text-muted-foreground">OrbitOps Workspace</div>
+              <div className="text-sm text-muted-foreground">KnowVato Solutions Workspace</div>
             </header>
             <main className="flex-1 min-w-0">
               <Outlet />

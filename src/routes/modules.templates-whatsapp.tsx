@@ -372,7 +372,7 @@ function WhatsAppTemplatesPage() {
                     onValueChange={(v) =>
                       setForm({
                         ...form,
-                        header: { type: v as Template["header"]["type"], text: form.header?.text },
+                        header: { type: v as NonNullable<Template["header"]>["type"], text: form.header?.text },
                       })
                     }
                   >

@@ -10,12 +10,31 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ModulesTemplatesWhatsappRouteImport } from './routes/modules.templates-whatsapp'
+import { Route as ModulesTemplatesSmsRouteImport } from './routes/modules.templates-sms'
+import { Route as ModulesTemplatesEmailRouteImport } from './routes/modules.templates-email'
 import { Route as ModulesIntegrationsWhatsappRouteImport } from './routes/modules.integrations-whatsapp'
 import { Route as ModulesModuleRouteImport } from './routes/modules.$module'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulesTemplatesWhatsappRoute =
+  ModulesTemplatesWhatsappRouteImport.update({
+    id: '/modules/templates-whatsapp',
+    path: '/modules/templates-whatsapp',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ModulesTemplatesSmsRoute = ModulesTemplatesSmsRouteImport.update({
+  id: '/modules/templates-sms',
+  path: '/modules/templates-sms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModulesTemplatesEmailRoute = ModulesTemplatesEmailRouteImport.update({
+  id: '/modules/templates-email',
+  path: '/modules/templates-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModulesIntegrationsWhatsappRoute =
@@ -34,30 +53,61 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
+  '/modules/templates-email': typeof ModulesTemplatesEmailRoute
+  '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
+  '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
+  '/modules/templates-email': typeof ModulesTemplatesEmailRoute
+  '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
+  '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
+  '/modules/templates-email': typeof ModulesTemplatesEmailRoute
+  '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
+  '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/modules/$module' | '/modules/integrations-whatsapp'
+  fullPaths:
+    | '/'
+    | '/modules/$module'
+    | '/modules/integrations-whatsapp'
+    | '/modules/templates-email'
+    | '/modules/templates-sms'
+    | '/modules/templates-whatsapp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/modules/$module' | '/modules/integrations-whatsapp'
-  id: '__root__' | '/' | '/modules/$module' | '/modules/integrations-whatsapp'
+  to:
+    | '/'
+    | '/modules/$module'
+    | '/modules/integrations-whatsapp'
+    | '/modules/templates-email'
+    | '/modules/templates-sms'
+    | '/modules/templates-whatsapp'
+  id:
+    | '__root__'
+    | '/'
+    | '/modules/$module'
+    | '/modules/integrations-whatsapp'
+    | '/modules/templates-email'
+    | '/modules/templates-sms'
+    | '/modules/templates-whatsapp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ModulesModuleRoute: typeof ModulesModuleRoute
   ModulesIntegrationsWhatsappRoute: typeof ModulesIntegrationsWhatsappRoute
+  ModulesTemplatesEmailRoute: typeof ModulesTemplatesEmailRoute
+  ModulesTemplatesSmsRoute: typeof ModulesTemplatesSmsRoute
+  ModulesTemplatesWhatsappRoute: typeof ModulesTemplatesWhatsappRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -67,6 +117,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/templates-whatsapp': {
+      id: '/modules/templates-whatsapp'
+      path: '/modules/templates-whatsapp'
+      fullPath: '/modules/templates-whatsapp'
+      preLoaderRoute: typeof ModulesTemplatesWhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/templates-sms': {
+      id: '/modules/templates-sms'
+      path: '/modules/templates-sms'
+      fullPath: '/modules/templates-sms'
+      preLoaderRoute: typeof ModulesTemplatesSmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modules/templates-email': {
+      id: '/modules/templates-email'
+      path: '/modules/templates-email'
+      fullPath: '/modules/templates-email'
+      preLoaderRoute: typeof ModulesTemplatesEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/modules/integrations-whatsapp': {
@@ -90,17 +161,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ModulesModuleRoute: ModulesModuleRoute,
   ModulesIntegrationsWhatsappRoute: ModulesIntegrationsWhatsappRoute,
+  ModulesTemplatesEmailRoute: ModulesTemplatesEmailRoute,
+  ModulesTemplatesSmsRoute: ModulesTemplatesSmsRoute,
+  ModulesTemplatesWhatsappRoute: ModulesTemplatesWhatsappRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
