@@ -50,6 +50,9 @@ const modules = [
 ];
 
 const configurationSubmenu = [
+  { title: "WhatsApp Template", slug: "templates-whatsapp" },
+  { title: "SMS Template", slug: "templates-sms" },
+  { title: "Email Template", slug: "templates-email" },
   { title: "WhatsApp Integration", slug: "integrations-whatsapp" },
   { title: "Email Integration", slug: "integrations-email" },
   { title: "SMS Integration", slug: "integrations-sms" },
@@ -73,7 +76,7 @@ export function AppSidebar() {
           </div>
           {!collapsed && (
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold">OrbitOps</span>
+              <span className="text-sm font-semibold">KnowVato Solutions</span>
               <span className="text-xs text-muted-foreground">Workspace</span>
             </div>
           )}
@@ -120,7 +123,11 @@ export function AppSidebar() {
               })}
 
               <Collapsible
-                defaultOpen={pathname.startsWith("/modules/integrations-") || pathname === "/modules/configuration"}
+                defaultOpen={
+                  pathname.startsWith("/modules/integrations-") ||
+                  pathname.startsWith("/modules/templates-") ||
+                  pathname === "/modules/configuration"
+                }
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
