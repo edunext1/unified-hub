@@ -14,6 +14,7 @@ import { Route as ModulesTemplatesWhatsappRouteImport } from './routes/modules.t
 import { Route as ModulesTemplatesSmsRouteImport } from './routes/modules.templates-sms'
 import { Route as ModulesTemplatesEmailRouteImport } from './routes/modules.templates-email'
 import { Route as ModulesIntegrationsWhatsappRouteImport } from './routes/modules.integrations-whatsapp'
+import { Route as ModulesEventsRouteImport } from './routes/modules.events'
 import { Route as ModulesModuleRouteImport } from './routes/modules.$module'
 
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +44,11 @@ const ModulesIntegrationsWhatsappRoute =
     path: '/modules/integrations-whatsapp',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ModulesEventsRoute = ModulesEventsRouteImport.update({
+  id: '/modules/events',
+  path: '/modules/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModulesModuleRoute = ModulesModuleRouteImport.update({
   id: '/modules/$module',
   path: '/modules/$module',
@@ -52,6 +58,7 @@ const ModulesModuleRoute = ModulesModuleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/events': typeof ModulesEventsRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
@@ -60,6 +67,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/events': typeof ModulesEventsRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
+  '/modules/events': typeof ModulesEventsRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/modules/$module'
+    | '/modules/events'
     | '/modules/integrations-whatsapp'
     | '/modules/templates-email'
     | '/modules/templates-sms'
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/modules/$module'
+    | '/modules/events'
     | '/modules/integrations-whatsapp'
     | '/modules/templates-email'
     | '/modules/templates-sms'
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/modules/$module'
+    | '/modules/events'
     | '/modules/integrations-whatsapp'
     | '/modules/templates-email'
     | '/modules/templates-sms'
@@ -104,6 +116,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ModulesModuleRoute: typeof ModulesModuleRoute
+  ModulesEventsRoute: typeof ModulesEventsRoute
   ModulesIntegrationsWhatsappRoute: typeof ModulesIntegrationsWhatsappRoute
   ModulesTemplatesEmailRoute: typeof ModulesTemplatesEmailRoute
   ModulesTemplatesSmsRoute: typeof ModulesTemplatesSmsRoute
@@ -147,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModulesIntegrationsWhatsappRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/modules/events': {
+      id: '/modules/events'
+      path: '/modules/events'
+      fullPath: '/modules/events'
+      preLoaderRoute: typeof ModulesEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/modules/$module': {
       id: '/modules/$module'
       path: '/modules/$module'
@@ -160,6 +180,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ModulesModuleRoute: ModulesModuleRoute,
+  ModulesEventsRoute: ModulesEventsRoute,
   ModulesIntegrationsWhatsappRoute: ModulesIntegrationsWhatsappRoute,
   ModulesTemplatesEmailRoute: ModulesTemplatesEmailRoute,
   ModulesTemplatesSmsRoute: ModulesTemplatesSmsRoute,
@@ -168,13 +189,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
