@@ -13,7 +13,12 @@ import {
   LayoutDashboard,
   Bookmark,
   ChevronRight,
-  
+  Home,
+  CalendarPlus,
+  ScanLine,
+  QrCode,
+  Layers,
+  UserCheck,
 } from "lucide-react";
 import {
   Sidebar,
@@ -59,6 +64,16 @@ const configurationSubmenu = [
   { title: "Facebook Integration", slug: "integrations-facebook" },
   { title: "Other API Integration", slug: "integrations-other" },
 ];
+
+const eventsSubmenu = [
+  { title: "Dashboard", path: "/modules/events", icon: LayoutDashboard, exact: true },
+  { title: "Create Event", path: "/modules/events/create", icon: CalendarPlus },
+  { title: "Registrants", path: "/modules/events/registrants", icon: UserCheck },
+  { title: "Scan Pass", path: "/modules/events/scan", icon: ScanLine },
+  { title: "Generate QR Code", path: "/modules/events/qr", icon: QrCode },
+  { title: "Bulk QR Code", path: "/modules/events/bulk-qr", icon: Layers },
+];
+
 
 export function AppSidebar() {
   const { state } = useSidebar();
