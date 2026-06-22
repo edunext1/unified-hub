@@ -24,12 +24,12 @@ export function useLocation() {
 
 export function useParams<T extends Record<string, string> = Record<string, string>>(): T {
   return useRouterState({
-    select: (r) => {
+    select: (r: any) => {
       const matches = r.matches;
       const last = matches[matches.length - 1];
       return (last?.params ?? {}) as T;
     },
-  });
+  }) as T;
 }
 
 export function useSearchParams(): [URLSearchParams, (next: URLSearchParams | Record<string, string>) => void] {
