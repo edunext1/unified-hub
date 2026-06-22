@@ -1,3 +1,3 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../lib/router-shim";
 
 export const useNavigation = () => useNavigate();

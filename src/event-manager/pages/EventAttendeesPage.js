@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import QRCodeStyling from "qr-code-styling";
 import { toast } from "react-toastify";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "../lib/router-shim";
 import { useEventData } from "../context/EventDataContext";
 import SendCommunicationModal from "../components/SendCommunicationModal";
 

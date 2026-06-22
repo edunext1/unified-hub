@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "../lib/router-shim";
 import { useEventData } from "../context/EventDataContext";
 
 const DEFAULT_CATEGORIES = [

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FiPlus, FiSearch, FiFilter } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useEventData } from "../context/EventDataContext";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "../lib/router-shim";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 

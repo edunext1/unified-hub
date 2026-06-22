@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "../../lib/router-shim";
 import { BiScan, BiUpload, BiUserPlus } from "react-icons/bi";
 import { AiOutlineQrcode } from "react-icons/ai";
 import { FiX, FiGrid, FiCalendar, FiSettings, FiMessageCircle } from "react-icons/fi";

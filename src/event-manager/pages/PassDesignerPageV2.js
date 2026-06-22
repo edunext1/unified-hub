@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "../lib/router-shim";
 import { useEventData } from "../context/EventDataContext";
 import { fetchPassTemplates, createPassTemplate } from "../services/api";
 import JSZip from "jszip";

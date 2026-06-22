@@ -3,7 +3,7 @@ import { FiPlus, FiSearch, FiRefreshCcw, FiMoreVertical } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useEventData } from "../context/EventDataContext";
 import { BiEdit, BiUpload, BiGroup, BiTrash } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../lib/router-shim";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 

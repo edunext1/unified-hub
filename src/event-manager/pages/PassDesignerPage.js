@@ -9,7 +9,7 @@ import { ChromePicker } from "react-color";
 import JSZip from "jszip";
 import QRCodeStyling from "qr-code-styling";
 import { toast } from "react-toastify";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "../lib/router-shim";
 import { useEventData } from "../context/EventDataContext";
 import { fetchPassTemplates } from "../services/api";
 import {
