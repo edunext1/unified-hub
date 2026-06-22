@@ -16,6 +16,12 @@ import { Route as ModulesTemplatesEmailRouteImport } from './routes/modules.temp
 import { Route as ModulesIntegrationsWhatsappRouteImport } from './routes/modules.integrations-whatsapp'
 import { Route as ModulesEventsRouteImport } from './routes/modules.events'
 import { Route as ModulesModuleRouteImport } from './routes/modules.$module'
+import { Route as ModulesEventsIndexRouteImport } from './routes/modules.events.index'
+import { Route as ModulesEventsScanRouteImport } from './routes/modules.events.scan'
+import { Route as ModulesEventsRegistrantsRouteImport } from './routes/modules.events.registrants'
+import { Route as ModulesEventsQrRouteImport } from './routes/modules.events.qr'
+import { Route as ModulesEventsCreateRouteImport } from './routes/modules.events.create'
+import { Route as ModulesEventsBulkQrRouteImport } from './routes/modules.events.bulk-qr'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,34 +60,82 @@ const ModulesModuleRoute = ModulesModuleRouteImport.update({
   path: '/modules/$module',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModulesEventsIndexRoute = ModulesEventsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ModulesEventsRoute,
+} as any)
+const ModulesEventsScanRoute = ModulesEventsScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => ModulesEventsRoute,
+} as any)
+const ModulesEventsRegistrantsRoute =
+  ModulesEventsRegistrantsRouteImport.update({
+    id: '/registrants',
+    path: '/registrants',
+    getParentRoute: () => ModulesEventsRoute,
+  } as any)
+const ModulesEventsQrRoute = ModulesEventsQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => ModulesEventsRoute,
+} as any)
+const ModulesEventsCreateRoute = ModulesEventsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => ModulesEventsRoute,
+} as any)
+const ModulesEventsBulkQrRoute = ModulesEventsBulkQrRouteImport.update({
+  id: '/bulk-qr',
+  path: '/bulk-qr',
+  getParentRoute: () => ModulesEventsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
-  '/modules/events': typeof ModulesEventsRoute
+  '/modules/events': typeof ModulesEventsRouteWithChildren
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
   '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
+  '/modules/events/bulk-qr': typeof ModulesEventsBulkQrRoute
+  '/modules/events/create': typeof ModulesEventsCreateRoute
+  '/modules/events/qr': typeof ModulesEventsQrRoute
+  '/modules/events/registrants': typeof ModulesEventsRegistrantsRoute
+  '/modules/events/scan': typeof ModulesEventsScanRoute
+  '/modules/events/': typeof ModulesEventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
-  '/modules/events': typeof ModulesEventsRoute
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
   '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
+  '/modules/events/bulk-qr': typeof ModulesEventsBulkQrRoute
+  '/modules/events/create': typeof ModulesEventsCreateRoute
+  '/modules/events/qr': typeof ModulesEventsQrRoute
+  '/modules/events/registrants': typeof ModulesEventsRegistrantsRoute
+  '/modules/events/scan': typeof ModulesEventsScanRoute
+  '/modules/events': typeof ModulesEventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/modules/$module': typeof ModulesModuleRoute
-  '/modules/events': typeof ModulesEventsRoute
+  '/modules/events': typeof ModulesEventsRouteWithChildren
   '/modules/integrations-whatsapp': typeof ModulesIntegrationsWhatsappRoute
   '/modules/templates-email': typeof ModulesTemplatesEmailRoute
   '/modules/templates-sms': typeof ModulesTemplatesSmsRoute
   '/modules/templates-whatsapp': typeof ModulesTemplatesWhatsappRoute
+  '/modules/events/bulk-qr': typeof ModulesEventsBulkQrRoute
+  '/modules/events/create': typeof ModulesEventsCreateRoute
+  '/modules/events/qr': typeof ModulesEventsQrRoute
+  '/modules/events/registrants': typeof ModulesEventsRegistrantsRoute
+  '/modules/events/scan': typeof ModulesEventsScanRoute
+  '/modules/events/': typeof ModulesEventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -93,15 +147,26 @@ export interface FileRouteTypes {
     | '/modules/templates-email'
     | '/modules/templates-sms'
     | '/modules/templates-whatsapp'
+    | '/modules/events/bulk-qr'
+    | '/modules/events/create'
+    | '/modules/events/qr'
+    | '/modules/events/registrants'
+    | '/modules/events/scan'
+    | '/modules/events/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/modules/$module'
-    | '/modules/events'
     | '/modules/integrations-whatsapp'
     | '/modules/templates-email'
     | '/modules/templates-sms'
     | '/modules/templates-whatsapp'
+    | '/modules/events/bulk-qr'
+    | '/modules/events/create'
+    | '/modules/events/qr'
+    | '/modules/events/registrants'
+    | '/modules/events/scan'
+    | '/modules/events'
   id:
     | '__root__'
     | '/'
@@ -111,12 +176,18 @@ export interface FileRouteTypes {
     | '/modules/templates-email'
     | '/modules/templates-sms'
     | '/modules/templates-whatsapp'
+    | '/modules/events/bulk-qr'
+    | '/modules/events/create'
+    | '/modules/events/qr'
+    | '/modules/events/registrants'
+    | '/modules/events/scan'
+    | '/modules/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ModulesModuleRoute: typeof ModulesModuleRoute
-  ModulesEventsRoute: typeof ModulesEventsRoute
+  ModulesEventsRoute: typeof ModulesEventsRouteWithChildren
   ModulesIntegrationsWhatsappRoute: typeof ModulesIntegrationsWhatsappRoute
   ModulesTemplatesEmailRoute: typeof ModulesTemplatesEmailRoute
   ModulesTemplatesSmsRoute: typeof ModulesTemplatesSmsRoute
@@ -174,13 +245,77 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModulesModuleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/modules/events/': {
+      id: '/modules/events/'
+      path: '/'
+      fullPath: '/modules/events/'
+      preLoaderRoute: typeof ModulesEventsIndexRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
+    '/modules/events/scan': {
+      id: '/modules/events/scan'
+      path: '/scan'
+      fullPath: '/modules/events/scan'
+      preLoaderRoute: typeof ModulesEventsScanRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
+    '/modules/events/registrants': {
+      id: '/modules/events/registrants'
+      path: '/registrants'
+      fullPath: '/modules/events/registrants'
+      preLoaderRoute: typeof ModulesEventsRegistrantsRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
+    '/modules/events/qr': {
+      id: '/modules/events/qr'
+      path: '/qr'
+      fullPath: '/modules/events/qr'
+      preLoaderRoute: typeof ModulesEventsQrRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
+    '/modules/events/create': {
+      id: '/modules/events/create'
+      path: '/create'
+      fullPath: '/modules/events/create'
+      preLoaderRoute: typeof ModulesEventsCreateRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
+    '/modules/events/bulk-qr': {
+      id: '/modules/events/bulk-qr'
+      path: '/bulk-qr'
+      fullPath: '/modules/events/bulk-qr'
+      preLoaderRoute: typeof ModulesEventsBulkQrRouteImport
+      parentRoute: typeof ModulesEventsRoute
+    }
   }
 }
+
+interface ModulesEventsRouteChildren {
+  ModulesEventsBulkQrRoute: typeof ModulesEventsBulkQrRoute
+  ModulesEventsCreateRoute: typeof ModulesEventsCreateRoute
+  ModulesEventsQrRoute: typeof ModulesEventsQrRoute
+  ModulesEventsRegistrantsRoute: typeof ModulesEventsRegistrantsRoute
+  ModulesEventsScanRoute: typeof ModulesEventsScanRoute
+  ModulesEventsIndexRoute: typeof ModulesEventsIndexRoute
+}
+
+const ModulesEventsRouteChildren: ModulesEventsRouteChildren = {
+  ModulesEventsBulkQrRoute: ModulesEventsBulkQrRoute,
+  ModulesEventsCreateRoute: ModulesEventsCreateRoute,
+  ModulesEventsQrRoute: ModulesEventsQrRoute,
+  ModulesEventsRegistrantsRoute: ModulesEventsRegistrantsRoute,
+  ModulesEventsScanRoute: ModulesEventsScanRoute,
+  ModulesEventsIndexRoute: ModulesEventsIndexRoute,
+}
+
+const ModulesEventsRouteWithChildren = ModulesEventsRoute._addFileChildren(
+  ModulesEventsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ModulesModuleRoute: ModulesModuleRoute,
-  ModulesEventsRoute: ModulesEventsRoute,
+  ModulesEventsRoute: ModulesEventsRouteWithChildren,
   ModulesIntegrationsWhatsappRoute: ModulesIntegrationsWhatsappRoute,
   ModulesTemplatesEmailRoute: ModulesTemplatesEmailRoute,
   ModulesTemplatesSmsRoute: ModulesTemplatesSmsRoute,
@@ -189,13 +324,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

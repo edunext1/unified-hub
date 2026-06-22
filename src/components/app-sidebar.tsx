@@ -13,7 +13,12 @@ import {
   LayoutDashboard,
   Bookmark,
   ChevronRight,
-  
+  Home,
+  CalendarPlus,
+  ScanLine,
+  QrCode,
+  Layers,
+  UserCheck,
 } from "lucide-react";
 import {
   Sidebar,
@@ -60,6 +65,16 @@ const configurationSubmenu = [
   { title: "Other API Integration", slug: "integrations-other" },
 ];
 
+const eventsSubmenu = [
+  { title: "Dashboard", path: "/modules/events", icon: LayoutDashboard, exact: true },
+  { title: "Create Event", path: "/modules/events/create", icon: CalendarPlus },
+  { title: "Registrants", path: "/modules/events/registrants", icon: UserCheck },
+  { title: "Scan Pass", path: "/modules/events/scan", icon: ScanLine },
+  { title: "Generate QR Code", path: "/modules/events/qr", icon: QrCode },
+  { title: "Bulk QR Code", path: "/modules/events/bulk-qr", icon: Layers },
+];
+
+
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
@@ -84,6 +99,38 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
+        {pathname.startsWith("/modules/events") ? (
+          <SidebarGroup>
+            <SidebarGroupLabel>Event Manager</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/"} tooltip="Home">
+                    <Link to="/" className="flex items-center gap-2">
+                      <Home className="h-4 w-4 shrink-0" />
+                      <span>Home</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                {eventsSubmenu.map((s) => {
+                  const active = s.exact ? pathname === s.path : pathname === s.path;
+                  return (
+                    <SidebarMenuItem key={s.path}>
+                      <SidebarMenuButton asChild isActive={active} tooltip={s.title}>
+                        <Link to={s.path} className="flex items-center gap-2">
+                          <s.icon className="h-4 w-4 shrink-0" />
+                          <span>{s.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ) : (
+          <>
+
         <SidebarGroup>
           <SidebarGroupLabel>Main</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -200,7 +247,10 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         )}
+          </>
+        )}
       </SidebarContent>
+
 
       <SidebarFooter className="border-t">
         <SidebarMenu>
