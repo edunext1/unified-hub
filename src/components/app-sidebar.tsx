@@ -99,6 +99,38 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
+        {pathname.startsWith("/modules/events") ? (
+          <SidebarGroup>
+            <SidebarGroupLabel>Event Manager</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/"} tooltip="Home">
+                    <Link to="/" className="flex items-center gap-2">
+                      <Home className="h-4 w-4 shrink-0" />
+                      <span>Home</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                {eventsSubmenu.map((s) => {
+                  const active = s.exact ? pathname === s.path : pathname === s.path;
+                  return (
+                    <SidebarMenuItem key={s.path}>
+                      <SidebarMenuButton asChild isActive={active} tooltip={s.title}>
+                        <Link to={s.path} className="flex items-center gap-2">
+                          <s.icon className="h-4 w-4 shrink-0" />
+                          <span>{s.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ) : (
+          <>
+
         <SidebarGroup>
           <SidebarGroupLabel>Main</SidebarGroupLabel>
           <SidebarGroupContent>
