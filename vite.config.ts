@@ -12,4 +12,16 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    esbuild: {
+      loader: "tsx",
+      include: [/src\/event-manager\/.*\.js$/, /src\/.*\.[jt]sx?$/],
+      exclude: [],
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        loader: { ".js": "jsx" },
+      },
+    },
+  },
 });
