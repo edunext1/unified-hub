@@ -153,17 +153,25 @@ export function AppSidebar() {
             <SidebarMenu>
               {modules.map((m) => {
                 const url = `/modules/${m.slug}`;
+                const isEvents = m.slug === "events";
                 return (
                   <SidebarMenuItem key={m.slug}>
                     <SidebarMenuButton asChild isActive={pathname === url} tooltip={m.title}>
-                      <Link
-                        to="/modules/$module"
-                        params={{ module: m.slug }}
-                        className="flex items-center gap-2"
-                      >
-                        <m.icon className="h-4 w-4 shrink-0" />
-                        <span>{m.title}</span>
-                      </Link>
+                      {isEvents ? (
+                        <Link to="/modules/events" className="flex items-center gap-2">
+                          <m.icon className="h-4 w-4 shrink-0" />
+                          <span>{m.title}</span>
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/modules/$module"
+                          params={{ module: m.slug }}
+                          className="flex items-center gap-2"
+                        >
+                          <m.icon className="h-4 w-4 shrink-0" />
+                          <span>{m.title}</span>
+                        </Link>
+                      )}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
