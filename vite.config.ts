@@ -15,7 +15,7 @@ export default defineConfig({
   vite: {
     esbuild: {
       loader: "tsx",
-      include: [/src\/event-manager\/.*\.js$/, /src\/.*\.[jt]sx?$/],
+      include: [/src\/event-manager\/.*\.js$/, /.*\.[jt]sx?$/],
       exclude: [],
     },
     optimizeDeps: {
