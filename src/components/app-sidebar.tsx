@@ -1,4 +1,4 @@
-import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   CalendarRange,
   MessageSquare,
@@ -75,7 +75,6 @@ const eventsSubmenu = [
 
 
 export function AppSidebar() {
-  const navigate = useNavigate();
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const pathname = useRouterState({ select: (r) => r.location.pathname });
@@ -186,22 +185,18 @@ export function AppSidebar() {
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
-                  <SidebarMenuButton
-                    type="button"
-                    tooltip="Configuration"
-                    isActive={isConfigurationPath}
-                    onClick={() =>
-                      navigate({
-                        to: "/modules/$module",
-                        params: { module: "configuration" },
-                      })
-                    }
-                  >
-                    <Settings className="h-4 w-4 shrink-0" />
-                    <span>Configuration</span>
-                    <ChevronRight
-                      className={`ml-auto h-4 w-4 transition-transform ${isConfigurationPath ? "rotate-90" : ""}`}
-                    />
+                  <SidebarMenuButton asChild tooltip="Configuration" isActive={isConfigurationPath}>
+                    <Link
+                      to="/modules/$module"
+                      params={{ module: "configuration" }}
+                      className="flex items-center gap-2"
+                    >
+                      <Settings className="h-4 w-4 shrink-0" />
+                      <span>Configuration</span>
+                      <ChevronRight
+                        className={`ml-auto h-4 w-4 transition-transform ${isConfigurationPath ? "rotate-90" : ""}`}
+                      />
+                    </Link>
                   </SidebarMenuButton>
                   <CollapsibleContent>
                     <SidebarMenuSub>
