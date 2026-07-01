@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   CalendarRange,
   MessageSquare,
@@ -39,7 +39,6 @@ import {
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useAuth } from "@/lib/auth-store";
 import { useBookmarks } from "@/lib/bookmarks";
@@ -76,11 +75,16 @@ const eventsSubmenu = [
 
 
 export function AppSidebar() {
+  const navigate = useNavigate();
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const { user, login, logout } = useAuth();
   const { bookmarks } = useBookmarks();
+  const isConfigurationPath =
+    pathname.startsWith("/modules/integrations-") ||
+    pathname.startsWith("/modules/templates-") ||
+    pathname === "/modules/configuration";
 
   return (
     <Sidebar collapsible="icon">
@@ -178,24 +182,27 @@ export function AppSidebar() {
               })}
 
               <Collapsible
-                defaultOpen={
-                  pathname.startsWith("/modules/integrations-") ||
-                  pathname.startsWith("/modules/templates-") ||
-                  pathname === "/modules/configuration"
-                }
+                open={isConfigurationPath}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      tooltip="Configuration"
-                      isActive={pathname === "/modules/configuration"}
-                    >
-                      <Settings className="h-4 w-4 shrink-0" />
-                      <span>Configuration</span>
-                      <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
+                  <SidebarMenuButton
+                    type="button"
+                    tooltip="Configuration"
+                    isActive={isConfigurationPath}
+                    onClick={() =>
+                      navigate({
+                        to: "/modules/$module",
+                        params: { module: "configuration" },
+                      })
+                    }
+                  >
+                    <Settings className="h-4 w-4 shrink-0" />
+                    <span>Configuration</span>
+                    <ChevronRight
+                      className={`ml-auto h-4 w-4 transition-transform ${isConfigurationPath ? "rotate-90" : ""}`}
+                    />
+                  </SidebarMenuButton>
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem>

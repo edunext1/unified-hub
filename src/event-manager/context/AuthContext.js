@@ -4,24 +4,41 @@ const AuthContext = createContext({});
 
 const STORAGE_KEY = "em_auth_user";
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
+const storage = {
+  get() {
+    if (typeof window === "undefined") return null;
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = window.localStorage.getItem(STORAGE_KEY);
       return stored ? JSON.parse(stored) : null;
     } catch {
-      localStorage.removeItem(STORAGE_KEY);
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } catch {}
       return null;
     }
-  });
+  },
+  set(userData) {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+    }
+  },
+  clear() {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
+  },
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() => storage.get());
 
   const logout = () => {
-    localStorage.removeItem(STORAGE_KEY);
+    storage.clear();
     setUser(null);
   };
 
   const login = (userData) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+    storage.set(userData);
     setUser(userData);
   };
 
