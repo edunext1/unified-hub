@@ -2,7 +2,7 @@
 
 
 /* Default theme variables (Clean Slate) */
-:root {
+.em-shell {
   --primary: #0085A8;
   --primary-foreground: #ffffff;
   --background: #F7FBFE;
@@ -13,17 +13,17 @@
   --tab-track: #EBF2F8;
 }
 
-* {
-  margin: 0;
-  padding: 0;
+.em-shell *,
+.em-shell *::before,
+.em-shell *::after {
   box-sizing: border-box;
 }
 
-body {
+.em-shell {
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
+  min-height: 100%;
 }
 
 ::-webkit-scrollbar {

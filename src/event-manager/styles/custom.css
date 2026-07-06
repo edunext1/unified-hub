@@ -1,5 +1,5 @@
 /* src/styles/custom.css - GateFlow Theme System */
-:root {
+.em-shell {
   --radius: 0.625rem;
 
   /* Surfaces */
@@ -62,7 +62,7 @@
   --compact-gutter-y: 0.55rem;
 }
 
-.dark {
+.dark .em-shell, .em-shell.dark {
   --background: oklch(0.16 0.03 260);
   --foreground: oklch(0.96 0.005 260);
   --card: oklch(0.22 0.04 260);
@@ -129,7 +129,7 @@
 /* ── GLOBAL DESIGN SYSTEM OVERRIDES ── */
 
 /* Body and page background */
-body {
+.em-shell {
   background-color: var(--background);
   color: var(--foreground);
 }
@@ -604,7 +604,7 @@ hr {
   gap: 0.7rem !important;
 }
 
-body {
+.em-shell {
   font-family: var(--font-family);
   font-size: var(--normal-text-size);
   background: var(--background);
