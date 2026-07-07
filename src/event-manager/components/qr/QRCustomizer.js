@@ -12,7 +12,6 @@ const QRCustomizer = () => {
   const [sections, setSections] = useState({
     colors: true,
     style: false,
-    advanced: false,
   });
 
   useEffect(() => {
