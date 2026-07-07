@@ -108,7 +108,8 @@ export const Link = ({ to, children, ...rest }: any) => (
 export const Navigate = ({ to, replace }: { to: string; replace?: boolean }) => {
   const navigate = useTsNavigate();
   if (typeof window !== "undefined") {
-    queueMicrotask(() => navigate({ to: remapEmPath(to), replace }));
+    const { path, search } = splitPathAndSearch(remapEmPath(to));
+    queueMicrotask(() => navigate({ to: path, search: search as never, replace }));
   }
   return null;
 };
