@@ -33,13 +33,13 @@ export function remapEmPath(to: string): string {
   if (!to || typeof to !== "string") return to;
   if (to.startsWith(EM_PREFIX) || to.startsWith("/modules/")) return to;
   if (to.startsWith("/events")) {
-    // "/events" -> "/modules/events", "/events/xyz" -> "/modules/events" (index handles it)
+    // The ported CreateEventPage IS the events list/create screen and lives
+    // at "/modules/events/create". Everything under "/events" maps there
+    // (preserving any query string like ?mode=new).
     const rest = to.slice("/events".length);
-    if (!rest || rest.startsWith("?") || rest === "/") return EM_PREFIX + rest;
-    // Sub-routes we don't have separate pages for — fall back to the events index
-    // preserving query string if any
     const qIdx = rest.indexOf("?");
-    return EM_PREFIX + (qIdx >= 0 ? rest.slice(qIdx) : "");
+    const query = qIdx >= 0 ? rest.slice(qIdx) : "";
+    return "/modules/events/create" + query;
   }
   for (const p of EM_KNOWN) {
     if (to === p || to.startsWith(p + "/") || to.startsWith(p + "?")) {
