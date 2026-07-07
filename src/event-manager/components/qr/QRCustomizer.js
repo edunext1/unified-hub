@@ -66,18 +66,6 @@ const QRCustomizer = () => {
     dot: "M9,9 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0",
   };
 
-  // ================= SIZE HANDLER =================
-
-  const handleSizeChange = (e) => {
-    let val = parseInt(e.target.value, 10);
-
-    if (isNaN(val)) val = qrData.size;
-
-    val = Math.max(150, Math.min(2000, val));
-
-    updateQRData({ size: val });
-  };
-
   return (
     <div className="qr-customizer">
       <h5 className="mb-3">Customize QR Code</h5>
