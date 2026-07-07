@@ -147,6 +147,40 @@ const QRGeneratorPage = () => {
           >
             <div className="card-body p-4 text-center">
               <QRPreview />
+              <div className="mt-4 mb-3">
+                <div className="d-flex align-items-center justify-content-center mb-2 gap-3">
+                  <label className="form-label small mb-0">QR Size:</label>
+                  <div className="fw-bold">{qrData.size}px</div>
+                  <input
+                    type="number"
+                    className="form-control form-control-sm"
+                    style={{ width: "90px" }}
+                    min={150}
+                    max={2000}
+                    step={1}
+                    value={qrData.size}
+                    onChange={(e) => {
+                      let val = parseInt(e.target.value, 10);
+                      if (isNaN(val)) val = qrData.size;
+                      val = Math.max(150, Math.min(2000, val));
+                      updateQRData({ size: val });
+                    }}
+                  />
+                </div>
+                <input
+                  type="range"
+                  className="form-range"
+                  min="150"
+                  max="2000"
+                  step="10"
+                  value={qrData.size}
+                  onChange={(e) =>
+                    updateQRData({
+                      size: parseInt(e.target.value, 10),
+                    })
+                  }
+                />
+              </div>
               <hr className="my-4" />
               <DownloadOptions />
             </div>
