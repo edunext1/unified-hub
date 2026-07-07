@@ -88,7 +88,7 @@ export function useSearchParams(): [URLSearchParams, (next: URLSearchParams | Re
 }
 
 export const Link = ({ to, children, ...rest }: any) => (
-  <TsLink to={to} {...rest}>
+  <TsLink to={typeof to === "string" ? remapEmPath(to) : to} {...rest}>
     {children}
   </TsLink>
 );
@@ -96,7 +96,7 @@ export const Link = ({ to, children, ...rest }: any) => (
 export const Navigate = ({ to, replace }: { to: string; replace?: boolean }) => {
   const navigate = useTsNavigate();
   if (typeof window !== "undefined") {
-    queueMicrotask(() => navigate({ to, replace }));
+    queueMicrotask(() => navigate({ to: remapEmPath(to), replace }));
   }
   return null;
 };
