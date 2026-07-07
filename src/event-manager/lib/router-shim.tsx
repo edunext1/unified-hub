@@ -7,6 +7,48 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 
+// Legacy Event Manager routes were rooted at "/". In this app they live
+// under "/modules/events". Remap any path the ported pages try to navigate to.
+const EM_PREFIX = "/modules/events";
+const EM_KNOWN = [
+  "/events",
+  "/dashboard",
+  "/setup",
+  "/attendees",
+  "/attendance",
+  "/scan",
+  "/qr",
+  "/bulk-qr",
+  "/registrants",
+  "/pass-designer",
+  "/pass-templates",
+  "/form-designer",
+  "/form-templates",
+  "/activity",
+  "/logs",
+  "/import-qr",
+];
+
+export function remapEmPath(to: string): string {
+  if (!to || typeof to !== "string") return to;
+  if (to.startsWith(EM_PREFIX) || to.startsWith("/modules/")) return to;
+  if (to.startsWith("/events")) {
+    // "/events" -> "/modules/events", "/events/xyz" -> "/modules/events" (index handles it)
+    const rest = to.slice("/events".length);
+    if (!rest || rest.startsWith("?") || rest === "/") return EM_PREFIX + rest;
+    // Sub-routes we don't have separate pages for — fall back to the events index
+    // preserving query string if any
+    const qIdx = rest.indexOf("?");
+    return EM_PREFIX + (qIdx >= 0 ? rest.slice(qIdx) : "");
+  }
+  for (const p of EM_KNOWN) {
+    if (to === p || to.startsWith(p + "/") || to.startsWith(p + "?")) {
+      return EM_PREFIX + to;
+    }
+  }
+  return to;
+}
+
 export function useNavigate() {
   const navigate = useTsNavigate();
   return (to: string | number, opts?: { replace?: boolean }) => {
@@ -14,7 +56,7 @@ export function useNavigate() {
       if (typeof window !== "undefined") window.history.go(to);
       return;
     }
-    navigate({ to, replace: opts?.replace });
+    navigate({ to: remapEmPath(to), replace: opts?.replace });
   };
 }
 
