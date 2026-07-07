@@ -49,6 +49,16 @@ export function remapEmPath(to: string): string {
   return to;
 }
 
+function splitPathAndSearch(url: string): { path: string; search: Record<string, string> } {
+  const qIdx = url.indexOf("?");
+  if (qIdx < 0) return { path: url, search: {} };
+  const path = url.slice(0, qIdx);
+  const sp = new URLSearchParams(url.slice(qIdx + 1));
+  const search: Record<string, string> = {};
+  sp.forEach((v, k) => (search[k] = v));
+  return { path, search };
+}
+
 export function useNavigate() {
   const navigate = useTsNavigate();
   return (to: string | number, opts?: { replace?: boolean }) => {
@@ -56,7 +66,9 @@ export function useNavigate() {
       if (typeof window !== "undefined") window.history.go(to);
       return;
     }
-    navigate({ to: remapEmPath(to), replace: opts?.replace });
+    const remapped = remapEmPath(to);
+    const { path, search } = splitPathAndSearch(remapped);
+    navigate({ to: path, search: search as never, replace: opts?.replace });
   };
 }
 
