@@ -348,55 +348,6 @@ const QRCustomizer = () => {
         )}
       </div>
 
-      {/* ================= SIZE SECTION ================= */}
-
-      <div className="customizer-section">
-        <div
-          className="d-flex justify-content-between align-items-center cursor-pointer"
-          onClick={() => toggleSection("advanced")}
-          style={{ cursor: "pointer" }}
-        >
-          <h6 className="mb-0">QR Size</h6>
-
-          {sections.advanced ? <FiChevronUp /> : <FiChevronDown />}
-        </div>
-
-        {sections.advanced && (
-          <div className="mt-3">
-            <div className="d-flex align-items-center mb-2">
-              <label className="form-label small me-3 mb-0">Size:</label>
-
-              <div className="me-2 fw-bold">{qrData.size}px</div>
-
-              <input
-                type="number"
-                className="form-control form-control-sm me-2"
-                style={{ width: "100px" }}
-                min={150}
-                max={2000}
-                step={1}
-                value={qrData.size}
-                onChange={handleSizeChange}
-              />
-            </div>
-
-            <input
-              type="range"
-              className="form-range mb-3"
-              min="150"
-              max="2000"
-              step="10"
-              value={qrData.size}
-              onChange={(e) =>
-                updateQRData({
-                  size: parseInt(e.target.value, 10),
-                })
-              }
-            />
-          </div>
-        )}
-      </div>
-
       {/* ================= COLOR PICKER ================= */}
 
       {showColorPicker && (
